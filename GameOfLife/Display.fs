@@ -1,0 +1,4 @@
+﻿namespace Display
+
+module Console =
+    ()
