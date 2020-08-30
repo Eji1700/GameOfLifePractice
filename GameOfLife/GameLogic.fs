@@ -14,7 +14,9 @@ module Main =
         let newBoard =
             g.Board
             |> Array.map(Cell.checkSurvival g)
-        if Board.aliveCells newBoard > 0 && not (Console.KeyAvailable && Console.ReadKey(true).Key = ConsoleKey.Escape) then
+        if Board.aliveCells newBoard > 0 
+            && not (Console.KeyAvailable 
+                    && Console.ReadKey(true).Key = ConsoleKey.Escape) then
             gameLoop {g with 
                         Board = newBoard
                         Generation = g.Generation + 1}
