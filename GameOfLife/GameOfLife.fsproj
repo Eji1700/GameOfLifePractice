@@ -5,8 +5,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Types.fs" />
-    <Compile Include="GameLogic.fs" />
     <Compile Include="Display.fs" />
+    <Compile Include="GameLogic.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 </Project>
