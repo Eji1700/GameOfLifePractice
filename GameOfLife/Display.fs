@@ -9,13 +9,11 @@ module ConsoleOutput =
             for w in 0..g.Width do
                 let c = Cell.getCell w h g
                 let x,_ = c.Position
-                if c.Status = Alive then
-                    "O"
-                else 
-                    "-"
-                if x = g.Width then 
-                    "\n"
-        |]
+                
+                if c.Status = Alive then "O"
+                else "-"
+
+                if x = g.Width then "\n" |]
         |> String.concat ""
         |> printf "%s"
 
