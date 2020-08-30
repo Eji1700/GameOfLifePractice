@@ -10,7 +10,7 @@ module Main =
          Generation = 1}
 
     let rec gameLoop g=
-        Display.ConsoleOutput.displayBoard 260 g
+        Display.ConsoleOutput.displayBoard 100 g
         let newBoard =
             g.Board
             |> Array.map(Cell.checkSurvival g)
@@ -22,6 +22,9 @@ module Main =
                         Board = newBoard
                         Generation = g.Generation + 1}
         else
-            Display.ConsoleOutput.displayBoard 260 g
+            let final = {g with 
+                            Board = newBoard
+                            Generation = g.Generation + 1}
+            Display.ConsoleOutput.displayBoard 260 final
             printfn "Game Over. Gen %i" g.Generation
             Console.ReadLine() |> ignore
