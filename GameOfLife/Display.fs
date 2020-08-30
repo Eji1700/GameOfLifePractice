@@ -10,11 +10,11 @@ module ConsoleOutput =
                 let c = Cell.getCell w h g
                 let x,_ = c.Position
                 if c.Status = Alive then
-                    sprintf "O"
+                    "O"
                 else 
-                    sprintf "-"
+                    "-"
                 if x = g.Width then 
-                    sprintf "\n"
+                    "\n"
         |]
         |> String.concat ""
         |> printf "%s"
