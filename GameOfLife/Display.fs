@@ -1,9 +1,10 @@
 ﻿namespace Display
 open Types.Model
+open System
 
 module ConsoleOutput =
     
-    let displayBoard (g:Game) =
+    let private makeVisualBoard (g:Game) =
         [|for h in 0..g.Height do
             for w in 0..g.Width do
                 let c = Cell.getCell w h g
@@ -17,3 +18,9 @@ module ConsoleOutput =
         |]
         |> String.concat ""
         |> printf "%s"
+
+    let displayBoard (refresh: int) g=
+        Threading.Thread.Sleep refresh
+        Console.Clear()
+        printfn "Gen %i" g.Generation
+        makeVisualBoard g
