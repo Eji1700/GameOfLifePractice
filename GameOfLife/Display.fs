@@ -15,10 +15,10 @@ module ConsoleOutput =
 
                 if x = g.Width then "\n" |]
         |> String.concat ""
-        |> printf "%s"
+        |> Console.Write
 
     let displayBoard g=
-        Console.Clear()
-        printfn "Gen %i" g.Generation
+        Console.SetCursorPosition(0,0)
         makeVisualBoard g
+        printfn "Gen %i" g.Generation
         Threading.Thread.Sleep g.Refresh

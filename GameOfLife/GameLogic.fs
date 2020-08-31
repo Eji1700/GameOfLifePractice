@@ -16,29 +16,40 @@ module Main =
             g.Board
             |> Array.map(Cell.checkSurvival g)
 
-        if Board.aliveCells newBoard > 0 
+        let living = Board.aliveCells newBoard
+        if living > 0 
             && not (Console.KeyAvailable 
                     ) then
             gameLoop {g with 
                         Board = newBoard
                         Generation = g.Generation + 1}
         else
-            match Console.ReadKey(true).Key with
-            | ConsoleKey.Escape ->
+            if living = 0 then 
                 let final = {g with 
                                 Board = newBoard
                                 Generation = g.Generation + 1}
                 Display.ConsoleOutput.displayBoard final
                 printfn "Game Over. Gen %i" g.Generation
-                Console.ReadLine() |> ignore
+            
+            else             
+                match Console.ReadKey(true).Key with
+                | ConsoleKey.Escape ->
+                    let final = {g with 
+                                    Board = newBoard
+                                    Generation = g.Generation + 1}
+                    Display.ConsoleOutput.displayBoard final
+                    printfn "Game Over. Gen %i" g.Generation
+                    Console.ReadLine() |> ignore
 
-            | ConsoleKey.Spacebar ->
-                Console.ReadLine() |> ignore
-                gameLoop {g with
-                            Board = newBoard
-                            Generation = g.Generation + 1}
+                | ConsoleKey.Spacebar ->
+                    printfn "Paused, press enter to resume"
+                    Console.ReadLine() |> ignore
+                    Console.Clear()
+                    gameLoop {g with
+                                Board = newBoard
+                                Generation = g.Generation + 1}
 
-            | _ -> 
-               gameLoop {g with
-                            Board = newBoard
-                            Generation = g.Generation + 1}
+                | _ -> 
+                   gameLoop {g with
+                                Board = newBoard
+                                Generation = g.Generation + 1}
