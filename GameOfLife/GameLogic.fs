@@ -3,14 +3,15 @@ open Types.Model
 
 module Main =
     open System
-    let createState w h r=
+    let createState w h r randomSeed=
         {Width = w
          Height = h
-         Board = Board.createInitial w h
+         Board = Board.createInitial w h randomSeed
          Generation = 1
          Refresh = r}
 
     let rec gameLoop g=
+        Console.CursorVisible <- false
         Display.ConsoleOutput.displayBoard g
         let newBoard =
             g.Board

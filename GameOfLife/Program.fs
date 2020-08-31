@@ -2,6 +2,5 @@
 
 [<EntryPoint>]
 let main argv =
-    System.Console.CursorVisible <- false
-    Main.gameLoop (Main.createState 10 10 60)
+    Main.gameLoop (Main.createState 15 15 60 true)
     0

@@ -62,14 +62,17 @@ module Model =
             |> fun i -> cellRules cell i
 
     module Board =
-        let createInitial w h : Board= 
+        let createInitial w h randomSeed : Board= 
             let rng = System.Random()
             [|for x in 0..w do
                 for y in 0..h do
-                    if rng.Next(1,3) > 1 then 
-                        {Status = Dead; Position = x,y}
+                    if randomSeed then
+                        if rng.Next(1,3) > 1 then 
+                            {Status = Dead; Position = x,y}
+                        else
+                            {Status = Alive; Position = x,y}
                     else
-                        {Status = Alive; Position = x,y}|]
+                        {Status = Dead; Position = x,y}|]
 
         let aliveCells (b:Board) =
             b
