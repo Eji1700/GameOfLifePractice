@@ -8,36 +8,39 @@ module Main =
          Height = h
          Board = Board.createInitial w h randomSeed
          Generation = 1
-         Refresh = r}
+         Refresh = r
+         State = Menu}
 
     let rec gameLoop g=
-        Console.CursorVisible <- false
+        
+
         Display.ConsoleOutput.displayBoard g
         let newBoard =
             g.Board
             |> Array.map(Cell.checkSurvival g)
 
         let living = Board.aliveCells newBoard
-        if living > 0 
-            && not (Console.KeyAvailable 
-                    ) then
+        
+        if living > 0 && not (Console.KeyAvailable) then
             gameLoop {g with 
                         Board = newBoard
                         Generation = g.Generation + 1}
         else
             if living = 0 then 
-                let final = {g with 
-                                Board = newBoard
-                                Generation = g.Generation + 1}
+                let final = 
+                    {g with 
+                        Board = newBoard
+                        Generation = g.Generation + 1}
                 Display.ConsoleOutput.displayBoard final
                 printfn "Game Over. Gen %i" g.Generation
-            
+                Console.ReadLine() |> ignore
             else             
                 match Console.ReadKey(true).Key with
                 | ConsoleKey.Escape ->
-                    let final = {g with 
-                                    Board = newBoard
-                                    Generation = g.Generation + 1}
+                    let final = 
+                        {g with 
+                            Board = newBoard
+                            Generation = g.Generation + 1}
                     Display.ConsoleOutput.displayBoard final
                     printfn "Game Over. Gen %i" g.Generation
                     Console.ReadLine() |> ignore

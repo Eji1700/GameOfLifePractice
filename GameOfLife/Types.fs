@@ -7,13 +7,18 @@ module Model =
 
     type Cell = {Status: Status; Position: int * int}
     type Board = array<Cell>
+    type State = 
+    | Menu
+    | Running
+    | GameOver
 
     type Game = 
         {Width:int
          Height:int
          Board:Board
          Generation:int
-         Refresh:int}
+         Refresh:int
+         State:State }
 
     module Cell =
         let toggle cell =

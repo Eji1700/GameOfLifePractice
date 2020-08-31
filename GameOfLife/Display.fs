@@ -3,7 +3,6 @@ open Types.Model
 open System
 
 module ConsoleOutput =
-    
     let private makeVisualBoard (g:Game) =
         [|for h in 0..g.Height do
             for w in 0..g.Width do
