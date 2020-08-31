@@ -9,6 +9,7 @@ module Model =
     type Board = array<Cell>
     type State = 
     | Menu
+    | Paused
     | Running
     | GameOver
 

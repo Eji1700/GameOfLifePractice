@@ -12,8 +12,6 @@ module Main =
          State = Menu}
 
     let rec gameLoop g=
-        
-
         Display.ConsoleOutput.displayBoard g
         let newBoard =
             g.Board
@@ -33,6 +31,7 @@ module Main =
                         Generation = g.Generation + 1}
                 Display.ConsoleOutput.displayBoard final
                 printfn "Game Over. Gen %i" g.Generation
+                printfn "Press Enter to quit"
                 Console.ReadLine() |> ignore
             else             
                 match Console.ReadKey(true).Key with
@@ -43,6 +42,7 @@ module Main =
                             Generation = g.Generation + 1}
                     Display.ConsoleOutput.displayBoard final
                     printfn "Game Over. Gen %i" g.Generation
+                    printfn "Press Enter to quit"
                     Console.ReadLine() |> ignore
 
                 | ConsoleKey.Spacebar ->
