@@ -3,28 +3,42 @@ open Types.Model
 
 module Main =
     open System
-    let createState w h =
+    let createState w h r=
         {Width = w
          Height = h
          Board = Board.createInitial w h
-         Generation = 1}
+         Generation = 1
+         Refresh = r}
 
     let rec gameLoop g=
-        Display.ConsoleOutput.displayBoard 60 g
+        Display.ConsoleOutput.displayBoard g
         let newBoard =
             g.Board
             |> Array.map(Cell.checkSurvival g)
 
         if Board.aliveCells newBoard > 0 
             && not (Console.KeyAvailable 
-                    && Console.ReadKey(true).Key = ConsoleKey.Escape) then
+                    ) then
             gameLoop {g with 
                         Board = newBoard
                         Generation = g.Generation + 1}
         else
-            let final = {g with 
+            match Console.ReadKey(true).Key with
+            | ConsoleKey.Escape ->
+                let final = {g with 
+                                Board = newBoard
+                                Generation = g.Generation + 1}
+                Display.ConsoleOutput.displayBoard final
+                printfn "Game Over. Gen %i" g.Generation
+                Console.ReadLine() |> ignore
+
+            | ConsoleKey.Spacebar ->
+                Console.ReadLine() |> ignore
+                gameLoop {g with
                             Board = newBoard
                             Generation = g.Generation + 1}
-            Display.ConsoleOutput.displayBoard 60 final
-            printfn "Game Over. Gen %i" g.Generation
-            Console.ReadLine() |> ignore
+
+            | _ -> 
+               gameLoop {g with
+                            Board = newBoard
+                            Generation = g.Generation + 1}

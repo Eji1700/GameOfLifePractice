@@ -12,7 +12,8 @@ module Model =
         {Width:int
          Height:int
          Board:Board
-         Generation:int}
+         Generation:int
+         Refresh:int}
 
     module Cell =
         let toggle cell =

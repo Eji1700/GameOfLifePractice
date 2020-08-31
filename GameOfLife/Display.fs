@@ -9,16 +9,16 @@ module ConsoleOutput =
             for w in 0..g.Width do
                 let c = Cell.getCell w h g
                 let x,_ = c.Position
-                
+
                 if c.Status = Alive then "O"
-                else "-"
+                else "_"
 
                 if x = g.Width then "\n" |]
         |> String.concat ""
         |> printf "%s"
 
-    let displayBoard (refresh: int) g=
-        Threading.Thread.Sleep refresh
+    let displayBoard g=
         Console.Clear()
         printfn "Gen %i" g.Generation
         makeVisualBoard g
+        Threading.Thread.Sleep g.Refresh
