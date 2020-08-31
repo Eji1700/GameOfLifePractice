@@ -15,7 +15,7 @@ module Main =
         Display.ConsoleOutput.displayBoard g
         let newBoard =
             g.Board
-            |> Array.map(Cell.checkSurvival g)
+            |> List.map(Cell.checkSurvival g)
 
         let living = Board.aliveCells newBoard
         
