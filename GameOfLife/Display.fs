@@ -8,8 +8,8 @@ module ConsoleOutput =
         g.Board
         |> List.map(fun cell -> 
             match cell with
-            | {Status = Alive; Position = (Eq width , _)} -> "O\n"
-            | {Status = Dead; Position = (Eq x,_)} -> "_\n"
+            | {Status = Alive; Position = (Eq, _)} -> "O\n"
+            | {Status = Dead; Position = (Eq,_)} -> "_\n"
             | {Status = Alive} -> "O"
             | {Status = Dead} -> "_")
         |> String.concat ""
