@@ -42,7 +42,6 @@ module Model =
         let getCell x y g  =
             g.Board
             |> List.find (fun a -> a.Position = (x,y))
-            //|> List.exactlyOne
 
         let private liveCellRules cell i =
             match i with
@@ -74,11 +73,11 @@ module Model =
                 for y in 0..h do
                     if randomSeed then
                         if rng.Next(1,3) > 1 then 
-                            {Status = Dead; Position = x,y}
+                            {Status = Dead; Position = y,x}
                         else
-                            {Status = Alive; Position = x,y}
+                            {Status = Alive; Position = y,x}
                     else
-                        {Status = Dead; Position = x,y}]
+                        {Status = Dead; Position = y,x}]
 
         let aliveCells (b:Board) =
             b
