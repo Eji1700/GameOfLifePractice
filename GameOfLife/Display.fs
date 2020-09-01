@@ -4,13 +4,14 @@ open System
 
 module ConsoleOutput =
     let private makeVisualBoard (g:Game) =
+        let (|Eq|Ne|) x = if x = g.Width then Eq else Ne
         g.Board
         |> List.map(fun cell -> 
             match cell with
-            | {Status = Alive; Position = (x, _)} when x = g.Width  -> "O\n"
-            | {Status = Dead; Position = (x,_)} when x = g.Width -> "_\n"
-            | {Status = Alive; Position = (x,_)} when x <> g.Width -> "O"
-            | {Status = Dead; Position = (x,_)} when x <> g.Width -> "_")
+            | {Status = Alive; Position = (Eq width , _)} -> "O\n"
+            | {Status = Dead; Position = (Eq x,_)} -> "_\n"
+            | {Status = Alive} -> "O"
+            | {Status = Dead} -> "_")
         |> String.concat ""
         |> Console.Write
 
