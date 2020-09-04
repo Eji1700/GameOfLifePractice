@@ -1,5 +1,6 @@
 ﻿namespace GameLogic
 open Types.Model
+open Visuals.Console
 
 module Main =
     open System
@@ -12,6 +13,7 @@ module Main =
          State = Menu}
 
     let pauseGame() =
+        //display pause menu and parse input?
         printfn "Paused, press enter to resume"
         Console.ReadLine() |> ignore
         Console.Clear()
@@ -21,13 +23,13 @@ module Main =
             {g with 
                 Board = newBoard
                 Generation = g.Generation + 1}
-        Display.ConsoleOutput.displayBoard final
+        Display.displayBoard final
         printfn "Game Over. Gen %i" g.Generation
         printfn "Press Enter to quit"
         Console.ReadLine() |> ignore
 
     let rec gameLoop g=
-        Display.ConsoleOutput.displayBoard g
+        Display.displayBoard g
         let newBoard =
             g.Board
             |> List.map(Cell.checkSurvival g)
