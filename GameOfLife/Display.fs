@@ -4,7 +4,8 @@ open System
 
 module ConsoleOutput =
     let private makeVisualBoard (g:Game) =
-        let (|Eq|Ne|) x = if x = g.Width then Eq else Ne
+        let (|Eq|Ne|) x = 
+            if x = g.Width then Eq else Ne
         g.Board
         |> List.map(fun cell -> 
             match cell with

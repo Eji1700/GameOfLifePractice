@@ -11,6 +11,21 @@ module Main =
          Refresh = r
          State = Menu}
 
+    let pauseGame() =
+        printfn "Paused, press enter to resume"
+        Console.ReadLine() |> ignore
+        Console.Clear()
+
+    let endGame newBoard g =
+        let final = 
+            {g with 
+                Board = newBoard
+                Generation = g.Generation + 1}
+        Display.ConsoleOutput.displayBoard final
+        printfn "Game Over. Gen %i" g.Generation
+        printfn "Press Enter to quit"
+        Console.ReadLine() |> ignore
+
     let rec gameLoop g=
         Display.ConsoleOutput.displayBoard g
         let newBoard =
@@ -25,30 +40,14 @@ module Main =
                         Generation = g.Generation + 1}
         else
             if living = 0 then 
-                let final = 
-                    {g with 
-                        Board = newBoard
-                        Generation = g.Generation + 1}
-                Display.ConsoleOutput.displayBoard final
-                printfn "Game Over. Gen %i" g.Generation
-                printfn "Press Enter to quit"
-                Console.ReadLine() |> ignore
+                endGame newBoard g
             else             
                 match Console.ReadKey(true).Key with
                 | ConsoleKey.Escape ->
-                    let final = 
-                        {g with 
-                            Board = newBoard
-                            Generation = g.Generation + 1}
-                    Display.ConsoleOutput.displayBoard final
-                    printfn "Game Over. Gen %i" g.Generation
-                    printfn "Press Enter to quit"
-                    Console.ReadLine() |> ignore
+                    endGame newBoard g
 
                 | ConsoleKey.Spacebar ->
-                    printfn "Paused, press enter to resume"
-                    Console.ReadLine() |> ignore
-                    Console.Clear()
+                    pauseGame()
                     gameLoop {g with
                                 Board = newBoard
                                 Generation = g.Generation + 1}
