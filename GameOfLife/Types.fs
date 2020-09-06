@@ -66,6 +66,12 @@ module Model =
             |> List.sumBy(isAlive)
             |> fun i -> cellRules cell i
 
+        let ToggleStatus x y g =  
+            let newBoard = 
+                g.Board
+                |> List.map(fun cell -> if cell.Position = (x,y) then toggle cell else cell)  : Board
+            {g with Board = newBoard}
+
     module Board =
         let createInitial w h randomSeed : Board= 
             let rng = System.Random()

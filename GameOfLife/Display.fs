@@ -18,11 +18,17 @@ module Console =
             |> String.concat ""
             |> Console.Write
 
-        let displayBoard g=
+        let board g=
             Console.SetCursorPosition(0,0)
             makeBoard g
             printfn "Gen %i" g.Generation
             Threading.Thread.Sleep g.Refresh
 
-    module UI =
-        ()
+        let menu() =
+            printfn "1. New Game"
+            printfn "2. Change Cell"
+            printfn "1. New Game"
+            printfn "1. New Game"
+            printfn "1. New Game"
+
+

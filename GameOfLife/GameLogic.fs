@@ -23,13 +23,13 @@ module Main =
             {g with 
                 Board = newBoard
                 Generation = g.Generation + 1}
-        Display.displayBoard final
+        Display.board final
         printfn "Game Over. Gen %i" g.Generation
         printfn "Press Enter to quit"
         Console.ReadLine() |> ignore
 
     let rec gameLoop g=
-        Display.displayBoard g
+        Display.board g
         let newBoard =
             g.Board
             |> List.map(Cell.checkSurvival g)
