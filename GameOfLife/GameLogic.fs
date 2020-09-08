@@ -10,7 +10,7 @@ module Main =
          Board = Board.createInitial w h randomSeed
          Generation = 1
          Refresh = r
-         State = Menu}
+         State = StartMenu}
 
     let pauseGame() =
         //display pause menu and parse input?
@@ -59,3 +59,12 @@ module Main =
                    gameLoop {g with
                                 Board = newBoard
                                 Generation = g.Generation + 1}
+
+    let rec testgameLoop g =
+        match g.State with
+        | StartMenu -> testgameLoop g //Display start menu
+        | ToggleCells -> testgameLoop g // Display cell change ui.
+        | Paused -> testgameLoop g // Display pause menu
+        | Running -> testgameLoop g // Do logic checks for key entry/gameover
+        | GameOver -> testgameLoop g // Show GameOver data/menu.
+        | Quit -> testgameLoop g // exit game

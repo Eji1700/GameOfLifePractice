@@ -9,7 +9,8 @@ module Model =
     type Cell = {Status: Status; Position: int * int}
     type Board = list<Cell>
     type State = 
-    | Menu
+    | StartMenu
+    | ToggleCells
     | Paused
     | Running
     | GameOver
