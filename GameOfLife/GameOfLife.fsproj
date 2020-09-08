@@ -6,8 +6,8 @@
   <ItemGroup>
     <Compile Include="Types.fs" />
     <Compile Include="Display.fs" />
-    <Compile Include="testDynamicConsole.fs" />
     <Compile Include="GameLogic.fs" />
+    <Compile Include="DynamicConsole.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 </Project>

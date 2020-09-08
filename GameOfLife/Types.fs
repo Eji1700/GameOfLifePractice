@@ -5,6 +5,7 @@ module Model =
     | Alive
     | Dead
 
+    [<Struct>]
     type Cell = {Status: Status; Position: int * int}
     type Board = list<Cell>
     type State = 
@@ -12,6 +13,7 @@ module Model =
     | Paused
     | Running
     | GameOver
+    | Quit
 
     type Game = 
         {Width:int

@@ -22,10 +22,11 @@ module Main =
         let final = 
             {g with 
                 Board = newBoard
-                Generation = g.Generation + 1}
+                Generation = g.Generation + 1
+                State = GameOver}
         Display.board final
         printfn "Game Over. Gen %i" g.Generation
-        printfn "Press Enter to quit"
+        printfn "Press Enter to quit" // TODO: rework into larger logic loop
         Console.ReadLine() |> ignore
 
     let rec gameLoop g=
