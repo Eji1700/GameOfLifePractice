@@ -1,15 +1,16 @@
 module DynamicConsole
     open System
 
-    let private displayChoices testChoices =
-        testChoices
+    let private displayMenu menu =
+        Console.SetCursorPosition(0,0)
+        menu
         |> Seq.iter(fun (char, str, _) -> printfn "%c. %s" char str)
         printfn "Pick a number from the list"
-        testChoices
+        menu
 
-    let rec private getUserChoice g testChoices = 
+    let rec private getUserInputAndExecute g menu = 
         let input = Console.ReadKey(true).KeyChar
-        testChoices
+        menu
         |> List.tryFind(fun (i,_,_) -> i = input)
         |> fun o ->
             match o with
@@ -18,8 +19,11 @@ module DynamicConsole
                 f g
             | None -> 
                 printfn "Invalid entry. Pick a choice from the list"
-                getUserChoice g testChoices
+                Console.ReadKey() |> ignore
+                Console.Clear()
+                displayMenu menu
+                |> getUserInputAndExecute g
 
-    let flow g testChoices=
-        displayChoices testChoices
-        |> getUserChoice g
+    let flow g menu =
+        displayMenu menu
+        |> getUserInputAndExecute g

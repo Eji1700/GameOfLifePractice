@@ -65,6 +65,9 @@ module Main =
         | StartMenu -> testgameLoop g //Display start menu
         | ToggleCells -> testgameLoop g // Display cell change ui.
         | Paused -> testgameLoop g // Display pause menu
+        | Options -> 
+            
+            testgameLoop g // Display options
         | Running -> testgameLoop g // Do logic checks for key entry/gameover
         | GameOver -> testgameLoop g // Show GameOver data/menu.
         | Quit -> testgameLoop g // exit game

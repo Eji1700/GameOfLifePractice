@@ -7,12 +7,16 @@ module Model =
 
     [<Struct>]
     type Cell = {Status: Status; Position: int * int}
+
     type Board = list<Cell>
+    
     type State = 
     | StartMenu
     | ToggleCells
-    | Paused
+    | NewGame
     | Running
+    | Paused
+    | Options
     | GameOver
     | Quit
 
@@ -22,6 +26,7 @@ module Model =
          Board:Board
          Generation:int
          Refresh:int
+         RandomSeed:bool
          State:State }
 
     module Cell =

@@ -3,6 +3,7 @@
 module Console =
     open Types.Model
     open System
+    open GameLogic
 
     module Display =
         let private makeBoard (g:Game) =
@@ -24,6 +25,8 @@ module Console =
             printfn "Gen %i" g.Generation
             Threading.Thread.Sleep g.Refresh
 
-    module Menus =
-        let StartMenu =
-            ['1', "New Game", ]
+        let StartMenu g =
+            DynamicConsole.flow Start.menuList
+
+        let OptionsMenu g =
+            DynamicConsole.flow Options.menuList
