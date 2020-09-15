@@ -20,7 +20,7 @@ module private Helpers =
             printfn "Invalid input. y/n only."
             yesNo()
 
-    let changeState g newState =
+    let changeState newState g =
         {g with State = newState}
 
 module Options =
@@ -45,7 +45,7 @@ module Options =
         {g with RandomSeed = r}
 
     let private mainMenu g =
-        {g with State = StartMenu}
+        Helpers.changeState StartMenu g 
 
     let menuList =
         ['1', "Change width", changeWidth
@@ -72,10 +72,10 @@ module Start =
         createNewGame g
 
     let private quit g =
-        Helpers.changeState g Quit
+        Helpers.changeState Quit g
 
     let private options g =
-        Helpers.changeState g Options
+        Helpers.changeState Options g
 
     let menuList =
         ['1', "New Game", newGame
@@ -84,10 +84,10 @@ module Start =
 
 module Paused =
     let private resume g =
-        Helpers.changeState g Running
+        Helpers.changeState Running g
 
     let private start g =
-        Helpers.changeState g StartMenu
+        Helpers.changeState StartMenu g
 
     let private quit g =
-        Helpers.changeState g Quit
+        Helpers.changeState Quit g
