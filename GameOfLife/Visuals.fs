@@ -24,9 +24,10 @@ module Console =
             makeBoard g
             printfn "Gen %i" g.Generation
             Threading.Thread.Sleep g.Refresh
+            g
 
-        let StartMenu g =
-            DynamicConsole.flow Start.menuList
+        let StartMenu g  =
+            DynamicConsole.StartFlow g
 
         let OptionsMenu g =
-            DynamicConsole.flow Options.menuList
+            DynamicConsole.OptionFlow g

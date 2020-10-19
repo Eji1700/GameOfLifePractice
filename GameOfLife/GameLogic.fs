@@ -23,6 +23,21 @@ module private Helpers =
     let changeState newState g =
         {g with State = newState}
 
+    let stateResume g =
+        changeState Running g
+
+    let stateStart g =
+        changeState StartMenu g
+
+    let stateQuit g =
+        changeState Quit g
+
+    let stateToggle g =
+        changeState ToggleCells g
+
+    let stateMainMenu g =
+        changeState StartMenu g 
+
 module Options =
     let private changeWidth g =
         printfn "Enter width"
@@ -44,31 +59,21 @@ module Options =
         let r = Helpers.yesNo()
         {g with RandomSeed = r}
 
-    let private mainMenu g =
-        Helpers.changeState StartMenu g 
-
     let menuList =
         ['1', "Change width", changeWidth
          '2', "Change height", changeHeight
          '3', "Adjust refresh rate", changeRefresh
          '4', "Random seed?", changeSeed
-         '5', "Main Menu", mainMenu]
+         '5', "Main Menu", Helpers.stateMainMenu]
 
 module Start =
-    let IntialGame() =
-        { Width= 10
-          Height= 10
-          Board= []
-          Generation= 0
-          Refresh= 60
-          RandomSeed= true
-          State= StartMenu }
-
     let private createNewGame g =
         {g with
-             Board = Board.createInitial g.Width g.Height g.RandomSeed}
+             Board = Board.createInitial g.Width g.Height g.RandomSeed
+             State = Running}
     
     let private newGame g =
+        Console.Clear()
         createNewGame g
 
     let private quit g =
@@ -82,12 +87,38 @@ module Start =
          '2', "Options", options
          '3', "Quit", quit]
 
+module ToggleCells =
+    let private changeCell g =
+        printfn "Enter X"
+        let x  = Helpers.getUserInt()
+        printfn "Enter Y"
+        let y = Helpers.getUserInt()
+        let cell = Cell.getCell x y g
+        Cell.toggle cell
+
+    let menuList =
+        ['1', "Change Cell", changeCell
+        
+        
+        ]
+
+
 module Paused =
-    let private resume g =
-        Helpers.changeState Running g
+    let menuList =
+        ['1', "Resume", Helpers.stateResume
+         '2', "Start Menu", Helpers.stateStart
+         '3', "Change Cell", Helpers.stateToggle
+         '4', "Quit", Helpers.stateQuit]
 
-    let private start g =
-        Helpers.changeState StartMenu g
-
-    let private quit g =
-        Helpers.changeState Quit g
+module Intital =
+    let GameState() =
+        { Width= 10
+          Height= 10
+          Board= []
+          Generation= 0
+          Refresh= 60
+          RandomSeed= true
+          State= StartMenu 
+          StartMenu= Start.menuList
+          OptionMenu= Options.menuList
+          }

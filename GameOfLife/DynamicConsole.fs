@@ -1,7 +1,9 @@
 module DynamicConsole
     open System
+    open Types.Model
 
     let private displayMenu menu =
+        Console.Clear()
         Console.SetCursorPosition(0,0)
         menu
         |> Seq.iter(fun (char, str, _) -> printfn "%c. %s" char str)
@@ -24,6 +26,10 @@ module DynamicConsole
                 displayMenu menu
                 |> getUserInputAndExecute g
 
-    let flow g menu =
-        displayMenu menu
+    let StartFlow g : Game =
+        displayMenu g.StartMenu
+        |> getUserInputAndExecute g
+
+    let OptionFlow g : Game =
+        displayMenu g.OptionMenu
         |> getUserInputAndExecute g

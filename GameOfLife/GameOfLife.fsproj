@@ -7,8 +7,8 @@
     <Compile Include="Types.fs" />
     <Compile Include="DynamicConsole.fs" />
     <Compile Include="GameLogic.fs" />
-    <Compile Include="Display.fs" />
-    <Compile Include="GameLoop.fs" />
+    <Compile Include="Visuals.fs" />
+    <Compile Include="Main.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 </Project>

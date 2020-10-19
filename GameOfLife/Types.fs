@@ -11,7 +11,7 @@ module Model =
     type Board = list<Cell>
     
     type State = 
-    | StartMenu
+    | StartMenu 
     | ToggleCells
     | NewGame
     | Running
@@ -27,7 +27,9 @@ module Model =
          Generation:int
          Refresh:int
          RandomSeed:bool
-         State:State }
+         State:State 
+         StartMenu: (char * string * (Game -> Game)) list
+         OptionMenu: (char * string * (Game -> Game)) list}
 
     module Cell =
         let toggle cell =
@@ -73,7 +75,7 @@ module Model =
             |> List.map(fun (a,b) -> getCell a b g)
             |> List.sumBy(isAlive)
             |> fun i -> cellRules cell i
-
+    
         let ToggleStatus x y g =  
             let newBoard = 
                 g.Board
@@ -97,3 +99,12 @@ module Model =
             b
             |> List.filter(fun cell -> cell.Status = Alive)
             |> List.length
+
+    module Game =
+        let CalcGen g =
+            g.Board
+            |> List.map (Cell.checkSurvival g) 
+            |> fun board -> 
+                {g with 
+                    Board = board
+                    Generation = g.Generation + 1}

@@ -4,6 +4,6 @@ open System
 [<EntryPoint>]
 let main argv =
     Console.CursorVisible <- false
-    //Main.gameLoop (Main.createState 10 10  60 true)
-    Console.ReadLine() |> ignore
+    Intital.GameState()
+    |> Main.GameLoop  
     0
